@@ -74,6 +74,10 @@ def home():
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
+    if current_user:
+        flash("You are already logged in. Logging you out now")
+        logout_user()
+        redirect(url_for('login'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
