@@ -1,2 +1,2 @@
 # ToDoFlask
-A basic ToDo App using Flask, Tailwind CSS, Alpine JS for learning purposes.
+A basic ToDo App using Flask for learning purposes.
