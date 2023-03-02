@@ -2,8 +2,8 @@
 A basic ToDo App using Flask for learning purposes.
 
 Features:
-Login, Sign Up pages
-Basic crud functionality (creating tasks, deleting tasks, creating users)
-Uses flask_login for authentication purposes
-Frontend doesn't look very good yet
-Uses sqlite for the database and sqlalchemy for accessing and managing it through python
+1) Login, Sign Up pages
+2) Basic crud functionality (creating tasks, deleting tasks, creating users)
+3) Uses flask_login for authentication purposes
+4) Frontend doesn't look very good yet
+5) Uses sqlite for the database and sqlalchemy for accessing and managing it through python
