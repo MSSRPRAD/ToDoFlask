@@ -1,11 +1,25 @@
 {% extends "base.html" %}
 
+{% block head %}
+{% endblock %}
+
 {% block body %}
-<h1>TO DO APPLICATION</h1>
-<div>
-    <a href="{{url_for('login')}}">Login Page</a>
-</div>
-<div>
-    <a href="{{url_for('register')}}">Registration Page</a>
-</div>
+
+<div class="bg-gray-200 h-screen">
+        <h1 class="text-gray-900 mb-8" style="text-align: center" ><b>TO DO APPLICATION</b></h1>
+    <div class="container mx-auto w-full h-full">
+      <div class="max-w-screen-sm mx-auto w-full h-full flex flex-col items-center justify-center">
+        <div class="bg-white p-5 shadow-md w-full">
+            <div>
+                <a href="{{url_for('login')}}">Login Page</a>
+            </div>
+            <div>
+                <a href="{{url_for('register')}}">Registration Page</a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 {% endblock %}

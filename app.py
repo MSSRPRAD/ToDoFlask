@@ -1,7 +1,7 @@
 import string
 import sys
 
-from flask import Flask, render_template, redirect, url_for, flash, session
+from flask import Flask, render_template, redirect, url_for, flash, session, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_required, login_user, LoginManager, current_user, logout_user
 import os
@@ -98,7 +98,7 @@ def logout():
 def dashboard():
     user = current_user
     tasks = user.tasks
-    return render_template('dashboard.html', tasks=tasks)
+    return render_template('dashboard.html', tasks=tasks, user = user)
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -117,6 +117,31 @@ def register():
         flash("")
         return redirect(url_for('login'))
     return render_template('register.html', form = form)
+
+@app.route('/delete/<int:id>')
+@login_required
+def delete(id):
+    user = current_user
+    tasks = user.tasks
+    task = Task.query.filter_by(id=id).first()
+    if task:
+        Task.query.filter_by(id=id).delete()
+        db.session.commit()
+        return redirect(url_for('dashboard'))
+
+@app.route('/dashboard/create', methods=['POST','GET'])
+@login_required
+def create():
+    if request.method == 'POST':
+        task = Task()
+        user = current_user
+        task.content = request.form['content']
+        task.user = user
+        if task:
+            db.session.add(task)
+            db.session.commit()
+            return redirect('/dashboard')
+    return "THERE WAS AN ERROR WHILE ADDING THE TASK!"
 
 if __name__ == '__main__':
     with app.app_context():

@@ -10,30 +10,39 @@
     <h1><div style="text-align: center;"><b>DASHBOARD</b></div></h1>
     <div class="container mx-auto w-full h-full">
       <div class="max-w-screen-sm mx-auto w-full h-full flex flex-col items-center justify-center">
+           <form action="/dashboard/create" method="POST">
+               <input type="text" name="content" id="content">
+               <input type="submit" value="Add Task">
+           </form>
         <div class="bg-white p-5 shadow-md w-full">
                         <table class="table-auto">
                           <thead>
+                                  <tr>
+                                    <th>Task</th>
+                                    <th>Actions</th>
+                                </tr>
                               {% for task in current_user.tasks %}
                                     <div class="float-container">
                                       <tr>
-                                          <th>{{task.content}}</th>
-                                          <th>
+                                          <td>{{task.content}}</td>
+                                          <td>
                                               <div class="flex flex-row-reverse float-child">
-                                                <button class="float-right px-2 py-1 uppercase border bg-gray-200 text-gray-900">Delete the task</button>
+                                                  <button class="float-right px-2 py-1 uppercase border bg-gray-200 text-gray-900"><a href="delete/{{task.id}}">Delete the task</a></button>
                                             </div>
-                                          </th>
+                                          </td>
                                       </tr>
                                     </div>
                               {% endfor %}
                           </tbody>
                         </table>
         </div>
+          <div>
+            <a href="{{url_for('logout')}}">Logout</a>
+        </div>
       </div>
     </div>
   </div>
 
 
-<div>
-    <a href="{{url_for('logout')}}">Logout</a>
-</div>
+
 {% endblock %}
