@@ -2,14 +2,8 @@
 
 {% block body %}
 
-<!--<form method="POST" action = "">-->
-<!--    {{form.hidden_tag()}}-->
-<!--    {{form.username}}-->
-<!--    {{form.password}}-->
-<!--    {{form.submit}}-->
-<!--</form>-->
 <div class="bg-gray-200 h-screen">
-    <div style="text-align: center;"><h1>LOGIN AUTHENTICATION PAGE</h1></div>
+    <div style="text-align: center;"><h1><b>LOGIN AUTHENTICATION PAGE</b></h1></div>
     <div class="container mx-auto w-full h-full">
       <div class="max-w-screen-sm mx-auto w-full h-full flex flex-col items-center justify-center">
         <div class="bg-white p-5 shadow-md w-full">
@@ -17,31 +11,14 @@
             {% for mesg in get_flashed_messages() %}
               <h1 style="color: crimson">{{ mesg }}</h1>
             {% endfor %}
-          <form method="POST" class="flex flex-col space-y-4">
-              {{form.hidden_tag()}}
-            <div class="flex flex-col space-y-2">
-              <label>Username</label>
-                <div class="px-2 py-1 border rounded-md focus:outline-none focus:border-blue-400">{{form.username}}</div>
-              <span class="text-sm italic text-red-500">
-                <div x-text="validation.email.message"></div>
-              </span>
-            </div>
-            <div class="flex flex-col space-y-2">
-              <label>Password</label>
-                <div class="px-2 py-1 border rounded-md focus:outline-none focus:border-blue-400">{{form.password}}</div>
-              <span class="text-sm italic text-red-500">
-                <div x-text="validation.password.message"></div>
-              </span>
-            </div>
-            <div class="float-container">
-                <div class="float-right flex flex-row-reverse ">
-                    <button class="px-2 py-1 uppercase border bg-gray-200 text-gray-900" type="submit">Submit</button>
+            <form action="/login" method="POST">
+               <input type="text" name="username" id="username">
+               <input type="password" name="password" id="password">
+               <input type="submit" value="Log In">
+                <div>
+                    <button><a href="{{url_for('register')}}">I don't have an account!</a></button>
                 </div>
-                <div class="float-left flex flex-row-reverse float-child">
-                    <button class="px-2 py-1 uppercase border bg-gray-200 text-gray-900"><a href="{{url_for('register')}}">Don't have an account</a></button>
-                </div>
-            </div>
-          </form>
+           </form>
         </div>
       </div>
     </div>

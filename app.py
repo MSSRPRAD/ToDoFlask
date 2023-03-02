@@ -74,11 +74,12 @@ def home():
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
         if user:
-            if bcrypt.check_password_hash(user.password, form.password.data):
+            if bcrypt.check_password_hash(user.password, password):
                 login_user(user)
                 flash("")
                 return redirect(url_for('dashboard'))
@@ -86,7 +87,7 @@ def login():
                 flash("Wrong Password. Please Try Again!")
         else:
             flash("Invalid Credentials. Please Try Again!")
-    return render_template('login.html', form = form)
+    return render_template('login.html')
 
 @app.route('/logout', methods = ['GET', 'POST'])
 def logout():
@@ -102,21 +103,22 @@ def dashboard():
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
-    form = LoginForm()
-
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data)
-        new_user = User(username=form.username.data, password = hashed_password)
-        existing_user = User.query.filter_by(username=form.username.data).first()
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        hashed_password = bcrypt.generate_password_hash(password)
+        new_user = User(username=username, password = hashed_password)
+        existing_user = User.query.filter_by(username=username).first()
         if (existing_user):
-            print('\nAlready Exists Error!\n', file=sys.stderr)
+            # print('\nAlready Exists Error!\n', file=sys.stderr)
             flash("That name is already taken, please choose another")
-            return render_template('register.html', form = form)
-        db.session.add(new_user)
-        db.session.commit()
-        flash("")
-        return redirect(url_for('login'))
-    return render_template('register.html', form = form)
+            return render_template('register.html')
+        else:
+            db.session.add(new_user)
+            db.session.commit()
+            flash("")
+            return redirect(url_for('login'))
+    return render_template('register.html')
 
 @app.route('/delete/<int:id>')
 @login_required
