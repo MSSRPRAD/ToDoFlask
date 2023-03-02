@@ -75,7 +75,8 @@ def home():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if current_user:
-        flash("You are already logged in. Logging you out now")
+        session.clear()
+        flash("If you try to open this page after logging in you will be logged out automatically!")
         logout_user()
         redirect(url_for('login'))
     if request.method == 'POST':
