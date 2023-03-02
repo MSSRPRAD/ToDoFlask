@@ -130,6 +130,15 @@ def delete(id):
         Task.query.filter_by(id=id).delete()
         db.session.commit()
         return redirect(url_for('dashboard'))
+@app.route('/delete/user')
+@login_required
+def deleteUser():
+    user = current_user
+    if user:
+        User.query.filter_by(id=user.id).delete()
+        logout_user()
+        db.session.commit()
+        return redirect(url_for('home'))
 
 @app.route('/dashboard/create', methods=['POST','GET'])
 @login_required
