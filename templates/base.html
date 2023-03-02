@@ -1,6 +1,10 @@
 <!doctype html>
+
 <html lang="en">
   <head>
+      <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet">
     {% block head %}
         <title>
             {% block title %}
@@ -12,6 +16,9 @@
     {% block body %}
 
     {% endblock %}
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer>
+    </script>
     <div id="content">
         {% block content %}
 

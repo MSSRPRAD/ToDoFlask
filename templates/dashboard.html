@@ -2,12 +2,37 @@
 
 {% block head %}
 
-<h1>DASHBOARD</h1>
-
 {% endblock %}
 
 {% block body %}
-<h1>YOU ARE LOGGED IN!</h1>
+
+<div class="bg-gray-200 h-screen">
+    <h1><div style="text-align: center;"><b>DASHBOARD</b></div></h1>
+    <div class="container mx-auto w-full h-full">
+      <div class="max-w-screen-sm mx-auto w-full h-full flex flex-col items-center justify-center">
+        <div class="bg-white p-5 shadow-md w-full">
+                        <table class="table-auto">
+                          <thead>
+                              {% for task in current_user.tasks %}
+                                    <div class="float-container">
+                                      <tr>
+                                          <th>{{task.content}}</th>
+                                          <th>
+                                              <div class="flex flex-row-reverse float-child">
+                                                <button class="float-right px-2 py-1 uppercase border bg-gray-200 text-gray-900">Delete the task</button>
+                                            </div>
+                                          </th>
+                                      </tr>
+                                    </div>
+                              {% endfor %}
+                          </tbody>
+                        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 <div>
     <a href="{{url_for('logout')}}">Logout</a>
 </div>
